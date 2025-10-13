@@ -84,7 +84,7 @@ export default function VerifyPage() {
 
           const orderData = await orderReq.json();
 
-          console.log("ejidewofjweoi",orderData)
+          console.log("ejidewollfjweoi",orderData)
 
           if (orderData.success) {
             alert("سفارش با موفقیت ثبت شد ✅");

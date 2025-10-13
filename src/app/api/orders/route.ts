@@ -18,7 +18,7 @@ if (!Isuser) {
 
     try{
         const body=await req.json();
-
+        console.log("Received order request:", body);
 
         const {cartitems,user}=body;
 const filedata=fs.readFileSync(filepath,"utf-8");
