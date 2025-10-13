@@ -55,6 +55,8 @@ if(!usertoken){
 
     const data = await response.json();
 
+    console.log("ifojthissseo"+data);
+
     if (data.data?.code === 100) {
       const paymentUrl = ZARINPAL_USE_SANDBOX
         ? `https://sandbox.zarinpal.com/pg/StartPay/${data.data.authority}`
