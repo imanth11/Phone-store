@@ -10,6 +10,7 @@ interface Ip {
 
 
 
+
 export default async function Des(props: Ip) {
   const { id } = await props.params;
   const items = await getPro();
