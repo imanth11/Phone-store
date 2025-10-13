@@ -64,7 +64,7 @@ if(!usertoken){
 
       return NextResponse.json({ success: true, url: paymentUrl });
     } else {
-      return NextResponse.json({ success: false, message: data.data?.message || "Payment request failed" });
+      return NextResponse.json({ success: false, message: data.data?.message || "Payment request failedddd" });
     }
   } catch (err) {
     console.error(err);
