@@ -3,6 +3,8 @@ import fs from "fs";
 import path from "path";
 import { create } from "domain";
 import { verifyToken } from "@/lib/jwt";
+import Order from "../models/order";
+import { connectDB } from "@/lib/mongodb";
 
 const filepath=path.join(process.cwd(),"src","orders.json")
 export async function POST(req:NextRequest){
@@ -17,23 +19,18 @@ if (!Isuser) {
 }
 
     try{
+
+        await connectDB();
         const body=await req.json();
         console.log("Received order request:", body);
 
         const {cartitems,user}=body;
-const filedata=fs.readFileSync(filepath,"utf-8");
-const orders=JSON.parse(filedata);
+
         
 
-const neworder={
-    id:Date.now(),
-    user,
-    cartitems:Array.isArray(cartitems)?cartitems:[],
-    createdAt:new Date().toISOString()
-}
+const neworder=await Order.create({user,cartitems});
 
-orders.push(neworder);
-fs.writeFileSync(filepath,JSON.stringify(orders,null,2));
+
 
 return NextResponse.json(
    { success:true,
@@ -51,16 +48,12 @@ message:"order inserted successfuly"
         },{status:500})
     }
 }
-export async function GET(){
-
-
-    try{
-        const filedata=fs.readFileSync(filepath,"utf-8");
-        const orders = JSON.parse(filedata);
-        return NextResponse.json({ success: true, orders });
-      } catch (error) {
-        console.error("Error reading orders:", error);
-        return NextResponse.json({ success: false, message: "Error reading orders" }, { status: 500 });
-      }
-    
-}
+export async function GET() {
+    try {
+      await connectDB();
+      const orders = await Order.find();
+      return NextResponse.json({ success: true, orders });
+    } catch (err) {
+      return NextResponse.json({ success: false, message: "Failed to fetch orders" }, { status: 500 });
+    }
+  }
