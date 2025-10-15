@@ -24,18 +24,19 @@ if (!Isuser) {
         const body=await req.json();
         console.log("Received order request:", body);
 
-        const {cartitems,user}=body;
+        const {cartitems,user,amount}=body;
 
         
 
-const neworder=await Order.create({user,cartitems});
+        const neworder = await Order.create({ cartitems, user, amount, status: "paid" });
+
 
 
 
 return NextResponse.json(
    { success:true,
 
-orderId:neworder.id,
+order:neworder.id,
 message:"order inserted successfuly"
    }
 
