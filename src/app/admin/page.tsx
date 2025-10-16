@@ -32,32 +32,21 @@ function Admin() {
 
 
 
-async function Remove(id:number){
-
-try{
-
-
-  const res=await fetch(`/api/orders/${id}`,{
-
-    method:"DELETE",
-  })
-
-
-  const data=await res.json();
-
-  if(data.success){
-    setOrders(orders.filter(item=>parseInt(item._id)!=id))
+  async function RemoveOrder(orderId: string) {
+    try {
+      const res = await fetch(`/api/orders/${orderId}`, { method: "DELETE" });
+      const data = await res.json();
+  
+      if (data.success) {
+        setOrders(orders.filter(o => o._id !== orderId));
+      } else {
+        alert("Failed to delete order: " + data.message);
+      }
+    } catch (err) {
+      alert("Error: " + err);
+    }
   }
-  else{
-    alert("failed")
-  }
-}catch(err){
-  alert("ERRor is:"+err)
-}
-
-
-}
-
+  
 
 
 
@@ -96,7 +85,7 @@ try{
             </p>
             <div>
               <button  className='bg-red-500 w-20 rounded border shadow-2xl mt-2'
-               onClick={()=>Remove(parseInt(order._id))}>Remove</button>
+               onClick={()=>RemoveOrder(order._id)}>Remove</button>
             </div>
           </div>
         ))

@@ -228,6 +228,9 @@ function clearCart(){
 
 
 
+
+
+
   return (
     <Cartcontext.Provider value={{cartitems,Allitems,logout,users,login,realprice,clearCart,addTocart,Remove,increase,descrease,totalprice}}>
 

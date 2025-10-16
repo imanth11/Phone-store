@@ -15,7 +15,7 @@ export async function DELETE(
   try {
     await connectDB(); // اتصال به MongoDB
 
-    const id=props.params
+    const {id}=await props.params
     const result = await Order.findByIdAndDelete(id);
 
     if (!result) {
