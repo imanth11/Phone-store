@@ -82,9 +82,10 @@ export default function VerifyPage() {
             })
           });
 
+          console.log("oeewofj",await orderReq.json())
           const orderData = await orderReq.json();
 
-          console.log("ejidewollfjweoi",orderData)
+        
 
           if (orderData.success) {
             alert("سفارش با موفقیت ثبت شد ✅");
