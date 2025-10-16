@@ -1,63 +1,27 @@
-import path from "path";
-import fs from "fs";
 import { NextResponse } from "next/server";
+import { ObjectId } from "mongodb";
+import  { connectDB } from "@/lib/mongodb";
+import Order from "../../models/order";
 
-const orderpath=path.join(process.cwd(),"src","orders.json")
+export async function DELETE(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  try {
+    await connectDB(); // اتصال به MongoDB
 
+    const result = await Order.findByIdAndDelete(params.id);
 
-export interface Iusers {
-    id: number
-    user: User
-    cartitems: Cartitem[]
-    createdAt: string
+    if (!result) {
+      return NextResponse.json({ success: false, message: "Order not found" });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error("Error deleting order:", err);
+    return NextResponse.json(
+      { success: false, message: "Database error" },
+      { status: 500 }
+    );
   }
-  
-  export interface User {
-    name: string
-    email: string
-  }
-  
-  export interface Cartitem {
-    id: number
-    range: string
-    isDis: boolean
-    Dis: number
-    name: string
-    price: number
-    image: string
-    qty: number
-    des?: string
-  }
-
-  interface Iparam{
-    params:Promise<{id:string}>
-    
-
-  }
-export async function DELETE(req:Request,props:Iparam){
-
-try{
-
-    const id=Number(props.params)
-
-
-
-const data=fs.readFileSync(orderpath,"utf-8");
-
-const orders=JSON.parse(data);
-
-const newOrders=orders.filter((item:Iusers)=>item.id!=id);
-
-fs.writeFileSync(orderpath,JSON.stringify(newOrders,null,2));
-
-return NextResponse.json({success:true})
-
-
-
-}catch(err){
-    console.error(err)
-    return NextResponse.json({success:false})
-}
-
-
 }
