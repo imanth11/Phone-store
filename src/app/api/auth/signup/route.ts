@@ -4,6 +4,8 @@ import bcrypt from "bcryptjs";
 
 import fs from "fs";
 import { json } from "stream/consumers";
+import { connectDB } from "@/lib/mongodb";
+import { User } from "../../models/user";
 
 const filepath=path.join(process.cwd(),"src","user.json");
 
@@ -19,6 +21,9 @@ export async function POST(req:Request){
 
 try{
 
+    await connectDB();
+
+
 const body=await req.json();
 const {name,email,password}=body;
 
@@ -28,11 +33,10 @@ if(!name||!email||!password){
     )
 }
 
-const filedata=fs.readFileSync(filepath,"utf-8");
-const users=JSON.parse(filedata);
 
 
-const existuser=users.find((u:Iuser)=>u.email===email);
+
+const existuser=await User.findOne({email});
 
 if(existuser){
     return NextResponse.json({ success:false,message:"this email used before"
@@ -46,18 +50,13 @@ if(existuser){
 
 const hashpass=await bcrypt.hash(password,10)
 
-const newuser={
-    id:Date.now(),
-    name,
-    email,
-    password:hashpass
-}
-users.push(newuser);
-fs.writeFileSync(filepath,JSON.stringify(users,null,2),"utf-8");
+const newuser=await User.create({
+    name,email,password:hashpass
+})
 
 return NextResponse.json(
     {success:true ,message:"inserted seccessfully",
-        user:{id:newuser.id,name:newuser.name,email:newuser.email,
+        user:{id:newuser._id,name:newuser.name,email:newuser.email,
             
         }
     }
