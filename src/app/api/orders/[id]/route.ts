@@ -3,14 +3,20 @@ import { ObjectId } from "mongodb";
 import  { connectDB } from "@/lib/mongodb";
 import Order from "../../models/order";
 
+
+interface Is{
+  params:Promise<{id:string}>
+}
+
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  props:Is  
 ) {
   try {
     await connectDB(); // اتصال به MongoDB
 
-    const result = await Order.findByIdAndDelete(params.id);
+    const id=props.params
+    const result = await Order.findByIdAndDelete(id);
 
     if (!result) {
       return NextResponse.json({ success: false, message: "Order not found" });
