@@ -16,15 +16,16 @@ function Admin() {
   const [loading, setLoading] = useState(true);
 
   useEffect(()=>{
-    fetch("/api/orders").then(res=>res.json()).then(data=>{
-        if(data.success){
-            setOrders(data.orders)
-        }
-        setLoading(false);
-    }).catch((error)=>{
-        console.error(error);
-        setLoading(false)
-    })
+   async function fetchOrders(){
+    const res=await fetch ("/api/orders");
+    const data=await res.json();
+    if(data.success){
+      setOrders(data.orders)
+
+      setLoading(false)
+    }
+    fetchOrders();
+   }
   },[])
 
 
