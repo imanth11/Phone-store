@@ -4,7 +4,7 @@ import { tp } from '../product/page';
 import { error } from 'console';
 
 interface order{
-    id: number;
+    _id: string;
     user: string;
     cartitems: tp[];
     createdAt: string;
@@ -24,8 +24,9 @@ function Admin() {
 
       setLoading(false)
     }
-    fetchOrders();
+   
    }
+   fetchOrders();
   },[])
 
 
@@ -45,7 +46,7 @@ try{
   const data=await res.json();
 
   if(data.success){
-    setOrders(orders.filter(item=>item.id!=id))
+    setOrders(orders.filter(item=>parseInt(item._id)!=id))
   }
   else{
     alert("failed")
