@@ -73,8 +73,8 @@ try{
         <p>No orders found.</p>
       ) : (
         orders.map((order) => (
-          <div key={order.id} className="border p-4 mb-4 rounded-lg shadow">
-            <h2 className="font-semibold text-xl">Order #{order.id}</h2>
+          <div key={order._id} className="border p-4 mb-4 rounded-lg shadow">
+            <h2 className="font-semibold text-xl">Order #{order._id}</h2>
             <p>User: {JSON.stringify(order.user)}</p>
             <p>Date: {new Date(order.createdAt).toLocaleString()}</p>
             <h3 className="font-semibold mt-2">Products:</h3>
@@ -96,7 +96,7 @@ try{
             </p>
             <div>
               <button  className='bg-red-500 w-20 rounded border shadow-2xl mt-2'
-               onClick={()=>Remove(order.id)}>Remove</button>
+               onClick={()=>Remove(parseInt(order._id))}>Remove</button>
             </div>
           </div>
         ))
