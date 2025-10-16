@@ -50,10 +50,12 @@ export default function VerifyPage() {
   }, [user, cartitems]);
 
   useEffect(() => {
+    console.log("🔥 readyToVerify changed:", readyToVerify);
     if (readyToVerify) {
       verifyPayment(user!);
     }
   }, [readyToVerify]);
+  
 
 
 
@@ -82,9 +84,9 @@ export default function VerifyPage() {
             })
           });
 
-          console.log("oeewofj",await orderReq.json())
+          
           const orderData = await orderReq.json();
-
+console.log("ieof",orderData)
         
 
           if (orderData.success) {
