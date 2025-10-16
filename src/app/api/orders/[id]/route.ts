@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { ObjectId } from "mongodb";
 import  { connectDB } from "@/lib/mongodb";
-import Order from "../../models/order";
+import {Order} from "../../models/order";
 
 
 interface Is{

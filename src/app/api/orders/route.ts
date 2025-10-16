@@ -3,8 +3,9 @@ import fs from "fs";
 import path from "path";
 import { create } from "domain";
 import { verifyToken } from "@/lib/jwt";
-import Order from "../models/order";
+import {Order} from "../models/order";
 import { connectDB } from "@/lib/mongodb";
+import { UndoIcon } from "lucide-react";
 
 const filepath=path.join(process.cwd(),"src","orders.json")
 export async function POST(req:NextRequest){
@@ -21,6 +22,8 @@ if (!Isuser) {
     try{
 
         await connectDB();
+       
+
         const body=await req.json();
         console.log("Received order request:", body);
 
@@ -42,7 +45,8 @@ message:"order inserted successfuly"
 
 )
     }catch(error){
-        console.error("Error happened:", error);
+      console.error("🔥 Error happened while inserting order:",  error);
+      console.error("🧠 Full error:", JSON.stringify(error, null, 2));
 
         return NextResponse.json({
             success:false, message:"error happend for adding"
