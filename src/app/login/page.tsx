@@ -32,9 +32,43 @@ function Login() {
         localStorage.setItem("email", JSON.stringify(email))
     }, [email]);
 
-    async function Submit(e: React.FormEvent) {
+
+    
+    async function Submit(e: React.FormEvent){
         e.preventDefault();
-        // لاجیک اصلی دست نخورده
+
+        const res=await fetch("/api/login",{
+
+method:"POST",
+headers:{"content-Type":"application/json"},
+body:JSON.stringify({
+    email,password
+}),
+credentials:"include"
+})
+        const data=await res.json();
+if(data.success){
+alert(data.message);
+
+login(data.user)
+
+
+router.push("/product")
+}
+else{
+    alert(data.message);
+  
+}
+
+
+
+
+
+
+
+
+
+
     }
 
     return (
