@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 function Logoutuser() {
-    const { logout } = useCart();
+    const { logout,cartitems, clearCart } = useCart();
     const router = useRouter();
    
 
@@ -13,6 +13,7 @@ function Logoutuser() {
     const res=await fetch("/api/logout",{
         method:"POST"
     })
+clearCart();
     logout();
         router.push("/login");
   }
