@@ -38,7 +38,7 @@ export default async function ProductsPage() {
         <p className="mt-2 text-center text-sm text-white/80">Discover curated items — clean, fast and responsive.</p>
       </div>
 
-      <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-fr">
+      <div className="grid gap-8 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 auto-rows-fr">
         {data.map((product) => (
           <div key={product.id} className="rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transform transition duration-200 hover:-translate-y-1">
             <Sendcart product={product} className="" />
@@ -48,4 +48,5 @@ export default async function ProductsPage() {
     </main>
   );
 }
+
 

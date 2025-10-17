@@ -24,7 +24,7 @@ const categories=[
 
 export default function Ranges({items}:Ite) {
   return (
-    <div className='container mx-auto grid justify-items-center  grid-cols-4 sm:grid-cols-2 lg:grid-cols-4 mt-10 '>
+    <div className='container mx-auto grid justify-items-center  grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 mt-10 '>
 
 {
   categories.map(c=>(
