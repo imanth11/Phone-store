@@ -8,7 +8,13 @@ export async function POST(req: Request) {
   const { message } = await req.json();
 
   // گرفتن محصولات سایت برای استفاده در prompt
+  
   const productsRes = await fetch(`${baseUrl}/api/products`, { cache: "no-store" });
+  
+  if (!productsRes.ok) {
+    throw new Error(`Failed to fetch products: ${productsRes.status}`);
+  }
+  
   const products = await productsRes.json();
 
   const systemPrompt = `
