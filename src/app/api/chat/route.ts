@@ -2,7 +2,7 @@ import { tp } from "@/app/product/page";
 import { NextResponse } from "next/server";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY!;
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3001";
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3001";
 
 export async function POST(req: Request) {
   const { message } = await req.json();
