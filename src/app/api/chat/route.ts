@@ -11,6 +11,9 @@ export async function POST(req: Request) {
   
   const productsRes = await fetch(`${baseUrl}/api/products`, { cache: "no-store" });
   
+
+console.log("thisdivjdpf",productsRes);
+
   if (!productsRes.ok) {
     throw new Error(`Failed to fetch products: ${productsRes.status}`);
   }
@@ -41,8 +44,9 @@ export async function POST(req: Request) {
       max_tokens: 300,
     }),
   });
-
+console.log("ifdijdjo",res)
   const data = await res.json();
+
   const reply = data?.choices?.[0]?.message?.content || "An error occurred.";
 
   return NextResponse.json({ reply });
