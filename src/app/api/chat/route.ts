@@ -46,6 +46,7 @@ console.log("thisdivjdpf",productsRes);
   });
 console.log("ifdijdjo",res)
   const data = await res.json();
+  console.log("result of data",data)
 
   const reply = data?.choices?.[0]?.message?.content || "An error occurred.";
 
